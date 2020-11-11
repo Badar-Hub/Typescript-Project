@@ -1,32 +1,45 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated class="glossy">
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          @click="leftDrawerOpen = !leftDrawerOpen"
+          aria-label="Menu"
+          icon="menu"
+        />
+
+        <q-toolbar-title>Test Project</q-toolbar-title>
+
+        <div>Quasar v{{ $q.version }}</div>
+      </q-toolbar>
+    </q-header>
+
+    <Sidebar v-model="leftDrawerOpen" />
+
+    <q-page-container>
+      <router-view />
+    </q-page-container>
+  </q-layout>
 </template>
 
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import Sidebar from "./components/sidebar/Sidebar.vue";
+import ToggleButton from "./components/general/ToggleButton.vue";
+
+@Component({
+  components: {
+    ToggleButton,
+    Sidebar,
+  },
+})
+export default class App extends Vue {
+  leftDrawerOpen = false;
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
